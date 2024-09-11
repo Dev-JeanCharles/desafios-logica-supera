@@ -1,6 +1,7 @@
 package org.example.app;
 
 import org.example.tools.Conversor;
+import org.example.tools.Cores;
 import org.example.tools.Impressoes;
 
 import java.util.Scanner;
@@ -40,17 +41,28 @@ public class Operacoes {
     public static void exibirTabela(Scanner sc) {
         while (true) {
             System.out.println("Exibição da Tabela de resistores:");
-            System.out.println("""
-                    • 0: preto
-                    • 1: marrom
-                    • 2: vermelho
-                    • 3: laranja
-                    • 4: amarelo
-                    • 5: verde
-                    • 6: azul
-                    • 7: violeta
-                    • 8: cinza
-                    • 9: branco""");
+            System.out.printf("""
+                            %s• 0: %s preto %s
+                            %s• 1: %s marrom %s
+                            %s• 2: %s vermelho %s
+                            %s• 3: %s laranja %s
+                            %s• 4: %s amarelo %s
+                            %s• 5: %s verde %s
+                            %s• 6: %s azul %s
+                            %s• 7: %s violeta %s
+                            %s• 8: %s cinza %s
+                            %s• 9: %s branco %s%n""",
+                    Cores.ANSI_PRETO, Cores.ANSI_PRETO, Cores.ANSI_RESET,
+                    Cores.ANSI_MARROM, Cores.ANSI_MARROM, Cores.ANSI_RESET,
+                    Cores.ANSI_VERMELHO, Cores.ANSI_VERMELHO, Cores.ANSI_RESET,
+                    Cores.ANSI_LARANJA, Cores.ANSI_LARANJA, Cores.ANSI_RESET,
+                    Cores.ANSI_AMARELO, Cores.ANSI_AMARELO, Cores.ANSI_RESET,
+                    Cores.ANSI_VERDE, Cores.ANSI_VERDE, Cores.ANSI_RESET,
+                    Cores.ANSI_AZUL, Cores.ANSI_AZUL, Cores.ANSI_RESET,
+                    Cores.ANSI_VIOLETA, Cores.ANSI_VIOLETA, Cores.ANSI_RESET,
+                    Cores.ANSI_CINZA, Cores.ANSI_CINZA, Cores.ANSI_RESET,
+                    Cores.ANSI_BRANCO, Cores.ANSI_BRANCO, Cores.ANSI_RESET
+            );
             System.out.print("Digite 0 para voltar ao menu de operações: ");
 
             int opcao = sc.nextInt();
