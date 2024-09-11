@@ -22,7 +22,7 @@ public class Operacoes {
 
             switch (opcao) {
                 case 1:
-                    Snail.iniciarSnail(sc);
+                    Snail.iniciarPrograma(sc);
                     break;
                 case 2:
                     System.out.println("Voltando ao menu principal.");
