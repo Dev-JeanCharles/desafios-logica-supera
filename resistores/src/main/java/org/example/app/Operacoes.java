@@ -1,6 +1,8 @@
 package org.example.app;
 
+import org.example.Handlers.EntradaUsuarioHandler;
 import org.example.tools.Conversor;
+import org.example.tools.CorMapper;
 import org.example.tools.Cores;
 import org.example.tools.Impressoes;
 
@@ -10,6 +12,9 @@ public class Operacoes {
 
     public static void menu() {
         Scanner sc = new Scanner(System.in);
+        CorMapper corMapper = new CorMapper();
+        Conversor conversor = new Conversor(corMapper);
+        EntradaUsuarioHandler entradaUsuarioHandler = new EntradaUsuarioHandler(sc, conversor);
 
         while (true) {
             System.out.print("##--Desafio Resistores – Código de Cores--##\n\n");
@@ -20,25 +25,54 @@ public class Operacoes {
             System.out.print("|---------------------------------------|\n");
 
             System.out.print("Escolha uma opção: ");
-            int opcao = sc.nextInt();
 
-        switch (opcao) {
-            case 1:
-                exibirTabela(sc);
-                break;
-            case 2:
-                Conversor.iniciarConversor();
-                break;
-            case 3:
-                System.out.println("Voltando ao menu principal");
-                return;
-            default:
-                System.out.println("Opção inválida! Tente novamente.");
-                break;
+            int opcao = entradaUsuarioHandler.escolher("");
+
+            switch (opcao) {
+                case 1:
+                    exibirTabela(entradaUsuarioHandler);
+                    break;
+                case 2:
+                    iniciarConversor(conversor, entradaUsuarioHandler);
+                    break;
+                case 3:
+                    System.out.println("Voltando ao menu principal");
+                    return;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
             }
         }
     }
-    public static void exibirTabela(Scanner sc) {
+
+    public static void iniciarConversor(Conversor conversor, EntradaUsuarioHandler entradaUsuario) {
+
+        while (true) {
+            String entrada = entradaUsuario.validarEntrada();
+
+            try {
+                String resultado = conversor.conversorParaCorCodigo(entrada);
+                System.out.println(Impressoes.CORRESPONDENTE + resultado);
+
+            } catch (Exception e) {
+                System.out.println(Impressoes.ENTRADA_INVALIDA);
+                continue;
+            }
+
+            int opcao = entradaUsuario.escolher("Digite 0 para voltar ao menu de operações ou 1 para continuar:");
+
+            if (opcao == 0) {
+                System.out.println(Impressoes.MENU_OPERACAO);
+                return;
+
+            } else if (opcao != 1) {
+                System.out.println(Impressoes.OPCAO_INVALIDA);
+            }
+        }
+    }
+
+    public static void exibirTabela(EntradaUsuarioHandler entradaUsuario) {
+
         while (true) {
             System.out.println("Exibição da Tabela de resistores:");
             System.out.printf("""
@@ -63,14 +97,14 @@ public class Operacoes {
                     Cores.ANSI_CINZA, Cores.ANSI_CINZA, Cores.ANSI_RESET,
                     Cores.ANSI_BRANCO, Cores.ANSI_BRANCO, Cores.ANSI_RESET
             );
-            System.out.print("Digite 0 para voltar ao menu de operações: ");
 
-            int opcao = sc.nextInt();
+            int opcao = entradaUsuario.escolher("Digite 0 para voltar ao menu de operações: ");
 
             if (opcao == 0) {
                 System.out.println(Impressoes.MENU_OPERACAO);
-                break;
-            }else {
+                return;
+
+            } else {
                 System.out.println(Impressoes.OPCAO_INVALIDA);
             }
         }
